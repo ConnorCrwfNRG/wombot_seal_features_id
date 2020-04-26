@@ -1,0 +1,12 @@
+<launch>
+<!-- <group ns="camera1">  -->
+<!--  I don't think this first node will work since there is no usb_cam_node file anywhere in this package-->
+<!--  it comes from a ROS package usb_cam so this definitely won't work-->
+  <node name="image_converter" pkg="ros_scratch_development" type="usb_cam_node" output="screen" >
+  </node>
+  <node name="image_view2" pkg="image_view" type="image_view" respawn="false" output="screen">
+    <remap from="image" to="/usb_cam/image_raw"/>
+    <param name="autosize" value="true" />
+  </node>
+<!--  </group> -->
+</launch>

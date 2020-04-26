@@ -5,6 +5,18 @@ import cv2
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge, CvBridgeError
 import numpy as np
+
+#verifying pythonpath
+import os
+try:
+    user_paths = os.environ['PYTHONPATH'].split(os.pathsep)
+except KeyError:
+    user_paths = []
+
+print(user_paths)
+
+import sys
+print(sys.version)
   
 bridge = CvBridge()
   

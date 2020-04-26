@@ -1,0 +1,22 @@
+<launch>
+  <machine
+    name="pi"
+    address="10.42.0.185"
+    user="wombot"
+    password="visionary"
+    env-loader="/home/wombot/catkin_ws/devel/ovc_env_loader.sh"
+  />
+
+  <node
+    machine="pi"
+    name="video_frames_pub"
+    pkg="wombot_sensors"
+    type="video_frames_pub.py"
+    output="screen" >
+  </node>
+
+  <node name="video_frames_sub" pkg="wombot_system" type="video_frames_sub.py" respawn="false" output="screen">
+    <param name="autosize" value="true" />
+  </node>
+
+</launch>

@@ -1,0 +1,8 @@
+<launch>
+<!-- <group ns="camera1">  -->
+  <node name="image_publisher" pkg="ros_scratch_development" type="ball_tracking_pub.py">
+  </node>
+  <node name="image_converter" pkg="ros_scratch_development" type="ball_tracking_sub.py">
+  </node>
+<!--  </group> -->
+</launch>
