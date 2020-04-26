@@ -1,0 +1,16 @@
+# Ignore Mac system files
+*.directory
+
+# kDevelop
+*.kdev_include_paths
+
+#PyCharm-related
+*.idea/
+
+#related to Connor's virtual environment using pipenv
+Pipfile
+Pipfile.lock
+.env
+
+# test photo captures
+photo_capture*
