@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(ME369P_seal_features_id)
+project(wombot_seal_features_id)
 
 ## Find catkin macros and libraries
 find_package(catkin REQUIRED COMPONENTS
@@ -38,7 +38,7 @@ generate_messages(
 ###################################
 catkin_package(
   INCLUDE_DIRS
-  LIBRARIES ME369P_seal_features_id
+  LIBRARIES wombot_seal_features_id
   CATKIN_DEPENDS roscpp rospy std_msgs message_runtime
   ##DEPENDS system_lib
 )
