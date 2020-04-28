@@ -1,9 +1,9 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 import cv2
 import os
 
-def capture_img(frame,name,counter):
-    path = '../images/'
+def capture_frame(frame, name, counter):
+    path = './'
     #print(os.path.join(path , img_name))
     cv2.imwrite(os.path.join(path , name), frame)
     print("{} written!".format(name))
