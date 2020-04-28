@@ -1,5 +1,13 @@
 # -*- coding: utf-8 -*-
 """
+Created on Mon Apr 27 19:38:27 2020
+
+@author: Henry Jiang
+"""
+
+
+# -*- coding: utf-8 -*-
+"""
 Created on Sat Apr 25 15:24:19 2020
 
 @author: Henry Jiang
@@ -33,11 +41,15 @@ while(cap.isOpened()):
  
         # Display the resulting frame
         # convert the frame to grayscale, blur it, and detect edges
-        frame = cv2.resize(frame, (1280,720))
-        RIO = frame[300:480,0:640]
-        #cv2.rectangle(frame, (0, 250), (640, 410), (0, 255, 0), 2)
+        frame = cv2.resize(frame, (640,480))
+        RIO = frame[300:400,10:630]
+        cv2.rectangle(frame, (0, 250), (640, 410), (0, 255, 0), 2)
         
-        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        
+        
+        ## Gray for RIO
+        gray = cv2.cvtColor(RIO, cv2.COLOR_BGR2GRAY)
+        #gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         blurred = cv2.GaussianBlur(gray, (7, 7), 0)
         #edged = cv2.Canny(blurred, 50, 150)
         lab = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -51,7 +63,10 @@ while(cap.isOpened()):
         cv2.imshow('Blurred', blurred)
         
         cnts = cv2.findContours(edged.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        
         cnts = imutils.grab_contours(cnts)
+        left_point = []
+        right_point = []
         
         for c in cnts:
             # approximate the contour
@@ -77,10 +92,24 @@ while(cap.isOpened()):
                 rows,cols = frame.shape[:2]
                 [vx,vy,x,y] = cv2.fitLine(c, cv2.DIST_L2,0,0.01,0.01)
                 lefty = int((-x*vy/vx) + y)
+                lefty = lefty + 300
+                left_point.append((10,lefty))
                 righty = int(((cols-x)*vy/vx)+y)
-                print(lefty, righty)
+                righty = righty + 300
+                right_point.append((630,righty))
+                
                 img = cv2.line(frame,(cols-1,righty),(0,lefty),(0,255,0),2)
                 
+        ### Code to connect points goes here
+        if len(left_point) ==2 and len(right_point)==2:
+            left = cv2.line(frame, left_point[0], left_point[1], (0,0,255), 2)
+            left_dist = abs(left_point[0][1] - left_point[1][1])
+            
+            right = cv2.line(frame, right_point[0], right_point[1], (0,0,255), 2)
+            right_dist = abs(right_point[0][1] - right_point[1][1])
+            print(left_point, right_point)
+            cv2.putText(frame, 'The left distance is ' + str(left_dist) + ' pixels', (50,50), cv2.FONT_HERSHEY_SIMPLEX , 1, (0,255,0), 2)
+            cv2.putText(frame, 'The right distance is ' + str(right_dist) + ' pixels', (50,100), cv2.FONT_HERSHEY_SIMPLEX , 1, (0,255,0), 2)
         cv2.imshow('Frame',frame)
  
         # Press Q on keyboard to  exit
