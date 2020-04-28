@@ -4,7 +4,7 @@ import numpy as np
 #Load the video
 #cap=cv2.VideoCapture('/home/adrianabeyta/anaconda3/share/OpenCV/FInal Project/TestVideo.mp4',0)
 #cap=cv2.VideoCapture('/home/adrianabeyta/anaconda3/share/OpenCV/FInal Project/Test_Video_WHoles.mov',0)
-cap=cv2.VideoCapture('/home/adrianabeyta/anaconda3/share/OpenCV/FInal Project/seal_vid2_rotated.mp4',0)
+cap=cv2.VideoCapture('/home/adrianabeyta/anaconda3/share/OpenCV/FInal Project/slowed.mp4',0)
 #cap=cv2.VideoCapture(0)
 
 #Inital Setings 
@@ -31,8 +31,8 @@ Brightness1=0
 
 #THRESHOLD FOR SCREWS
 Scale2=201
-Neig2=5
-Min_Area2=1100
+Neig2=8
+Min_Area2=1200
 Brightness2=0
 
 # LOAD THE CLASSIFIERS DOWNLOADED
@@ -41,7 +41,7 @@ hole_cascade=cv2.CascadeClassifier('/home/adrianabeyta/anaconda3/share/OpenCV/ha
 screw_cascade=cv2.CascadeClassifier('/home/adrianabeyta/anaconda3/share/OpenCV/haarcascades/haarcascade_bolt3.xml')
 while (cap.isOpened()):
     
-    ret,frame=cap.read()
+    ret=cap.read()
     
     if not ret:
         break
