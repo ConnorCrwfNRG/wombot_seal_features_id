@@ -3,7 +3,8 @@ import numpy as np
 
 #Load the video
 #cap=cv2.VideoCapture('/home/adrianabeyta/anaconda3/share/OpenCV/FInal Project/TestVideo.mp4',0)
-cap=cv2.VideoCapture('/home/adrianabeyta/anaconda3/share/OpenCV/FInal Project/Test_Video_WHoles.mov',0)
+#cap=cv2.VideoCapture('/home/adrianabeyta/anaconda3/share/OpenCV/FInal Project/Test_Video_WHoles.mov',0)
+cap=cv2.VideoCapture('/home/adrianabeyta/anaconda3/share/OpenCV/FInal Project/seal_vid2_rotated.mp4',0)
 #cap=cv2.VideoCapture(0)
 
 #Inital Setings 
@@ -11,15 +12,16 @@ objectName1 = 'hole'  # OBJECT NAME TO DISPLAY
 objectName2 = 'bolt' 
 frameWidth= 640                     # DISPLAY WIDTH
 frameHeight = 480                  # DISPLAY HEIGHT
-color= (255,225,0)
+color1= (255,225,0)
+color2= (255,0,0)
 cap.set(3, frameWidth)
 cap.set(4, frameHeight)
 
 def empty(a):
     pass
 # CREATE thresholds
-cv2.namedWindow("Result")
-cv2.resizeWindow("Result",frameWidth,frameHeight+100)
+#cv2.namedWindow("Result")
+#cv2.resizeWindow("Result",frameWidth,frameHeight+100)
 
 # #THRESHOLD FOR HOLES
 Scale1=200
@@ -28,16 +30,22 @@ Min_Area1=150
 Brightness1=0
 
 #THRESHOLD FOR SCREWS
-Scale2=200
-Neig2=10
-Min_Area2=8000
+Scale2=201
+Neig2=5
+Min_Area2=1100
 Brightness2=0
 
 # LOAD THE CLASSIFIERS DOWNLOADED
 #screw_cascade= cv2.CascadeClassifier('/home/adrianabeyta/anaconda3/share/OpenCV/haarcascades/haarcascade_bolt.xml')
 hole_cascade=cv2.CascadeClassifier('/home/adrianabeyta/anaconda3/share/OpenCV/haarcascades/haarcascade_holes.xml')
-screw_cascade=cv2.CascadeClassifier('/home/adrianabeyta/anaconda3/share/OpenCV/haarcascades/haarcascade_bolt.xml')
-while True:
+screw_cascade=cv2.CascadeClassifier('/home/adrianabeyta/anaconda3/share/OpenCV/haarcascades/haarcascade_bolt3.xml')
+while (cap.isOpened()):
+    
+    ret,frame=cap.read()
+    
+    if not ret:
+        break
+    
     # SET CAMERA BRIGHTNESS FROM TRACKBAR VALUE
     cameraBrightness2 = Brightness2
     # GET CAMERA IMAGE AND CONVERT TO GRAYSCALE
@@ -62,8 +70,8 @@ while True:
         area = w*h
         minArea = Min_Area2
         if area >minArea:
-            cv2.rectangle(img,(x,y),(x+w,y+h),color,3)
-            cv2.putText(img,objectName2,(x,y-5),cv2.FONT_HERSHEY_COMPLEX_SMALL,1,color,2)
+            cv2.rectangle(img,(x,y),(x+w,y+h),color1,3)
+            cv2.putText(img,objectName2,(x,y-5),cv2.FONT_HERSHEY_COMPLEX_SMALL,1,color1,1)
             roi_color = img[y:y+h, x:x+w]
             
     # DISPLAY THE DETECTED HOLES
@@ -71,10 +79,11 @@ while True:
         area = w*h
         minArea = Min_Area1
         if area >minArea:
-            cv2.rectangle(img,(x,y),(x+w,y+h),color,3)
-            cv2.putText(img,objectName1,(x,y-5),cv2.FONT_HERSHEY_COMPLEX_SMALL,1,color,2)
+            cv2.rectangle(img,(x,y),(x+w,y+h),color2,3)
+            cv2.putText(img,objectName1,(x,y-5),cv2.FONT_HERSHEY_COMPLEX_SMALL,1,color2,1)
             roi_color = img[y:y+h, x:x+w]
-
+            
+  
     cv2.imshow("Result", img)
 
   
