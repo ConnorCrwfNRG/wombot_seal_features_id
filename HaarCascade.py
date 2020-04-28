@@ -1,9 +1,14 @@
+import cv2
+import numpy as np
+
 #Load the video
-cap=cv2.VideoCapture('/home/adrianabeyta/anaconda3/share/OpenCV/FInal Project/TestVideo.mp4',0)
+#cap=cv2.VideoCapture('/home/adrianabeyta/anaconda3/share/OpenCV/FInal Project/TestVideo.mp4',0)
+cap=cv2.VideoCapture('/home/adrianabeyta/anaconda3/share/OpenCV/FInal Project/Test_Video_WHoles.mov',0)
 #cap=cv2.VideoCapture(0)
 
 #Inital Setings 
-objectName = 'bolt'       # OBJECT NAME TO DISPLAY
+objectName1 = 'hole'  # OBJECT NAME TO DISPLAY
+objectName2 = 'bolt' 
 frameWidth= 640                     # DISPLAY WIDTH
 frameHeight = 480                  # DISPLAY HEIGHT
 color= (255,225,0)
@@ -12,38 +17,62 @@ cap.set(4, frameHeight)
 
 def empty(a):
     pass
-# CREATE TRACKBAR
+# CREATE thresholds
 cv2.namedWindow("Result")
 cv2.resizeWindow("Result",frameWidth,frameHeight+100)
-cv2.createTrackbar("Scale","Result",201,1000,empty)
-cv2.createTrackbar("Neig","Result",10,50,empty)
-cv2.createTrackbar("Min Area","Result",10000,50000,empty)
-cv2.createTrackbar("Brightness","Result",100,200,empty)
+
+# #THRESHOLD FOR HOLES
+Scale1=200
+Neig1=1
+Min_Area1=150
+Brightness1=0
+
+#THRESHOLD FOR SCREWS
+Scale2=200
+Neig2=10
+Min_Area2=8000
+Brightness2=0
 
 # LOAD THE CLASSIFIERS DOWNLOADED
-screw_cascade= cv2.CascadeClassifier('/home/adrianabeyta/anaconda3/share/OpenCV/haarcascades/haarcascade_bolt.xml')
-
+#screw_cascade= cv2.CascadeClassifier('/home/adrianabeyta/anaconda3/share/OpenCV/haarcascades/haarcascade_bolt.xml')
+hole_cascade=cv2.CascadeClassifier('/home/adrianabeyta/anaconda3/share/OpenCV/haarcascades/haarcascade_holes.xml')
+screw_cascade=cv2.CascadeClassifier('/home/adrianabeyta/anaconda3/share/OpenCV/haarcascades/haarcascade_bolt.xml')
 while True:
     # SET CAMERA BRIGHTNESS FROM TRACKBAR VALUE
-    cameraBrightness = cv2.getTrackbarPos("Brightness", "Result")
-    cap.set(10, cameraBrightness)
+    cameraBrightness2 = Brightness2
     # GET CAMERA IMAGE AND CONVERT TO GRAYSCALE
     success, img = cap.read()
-    #gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-   
     # DETECT THE OBJECT USING THE CASCADE
-    scaleVal =(cv2.getTrackbarPos("Scale", "Result") /100)
-    neig=cv2.getTrackbarPos("Neig", "Result")
-    objects = screw_cascade.detectMultiScale(img,scaleVal,neig)
-   
+    scaleVal2=(Scale2 /100)
+    neig2=Neig2
+    screw = screw_cascade.detectMultiScale(img,scaleVal2,neig2)
     
-    # DISPLAY THE DETECTED OBJECTS
-    for (x,y,w,h) in objects:
+
+    # SET CAMERA BRIGHTNESS FROM TRACKBAR VALUE
+    cameraBrightness1 = Brightness1
+    # GET CAMERA IMAGE AND CONVERT TO GRAYSCALE
+    success, img = cap.read()
+    # DETECT THE OBJECT USING THE CASCADE
+    scaleVal1=(Scale2 /100)
+    neig1=Neig1
+    hole = hole_cascade.detectMultiScale(img,scaleVal1,neig1)
+    
+    #DISPLAY THE DETECTED SCREWS
+    for (x,y,w,h) in screw:
         area = w*h
-        minArea = cv2.getTrackbarPos("Min Area", "Result")
+        minArea = Min_Area2
         if area >minArea:
             cv2.rectangle(img,(x,y),(x+w,y+h),color,3)
-            cv2.putText(img,objectName,(x,y-5),cv2.FONT_HERSHEY_COMPLEX_SMALL,1,color,2)
+            cv2.putText(img,objectName2,(x,y-5),cv2.FONT_HERSHEY_COMPLEX_SMALL,1,color,2)
+            roi_color = img[y:y+h, x:x+w]
+            
+    # DISPLAY THE DETECTED HOLES
+    for (x,y,w,h) in hole:
+        area = w*h
+        minArea = Min_Area1
+        if area >minArea:
+            cv2.rectangle(img,(x,y),(x+w,y+h),color,3)
+            cv2.putText(img,objectName1,(x,y-5),cv2.FONT_HERSHEY_COMPLEX_SMALL,1,color,2)
             roi_color = img[y:y+h, x:x+w]
 
     cv2.imshow("Result", img)
