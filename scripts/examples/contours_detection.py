@@ -2,34 +2,35 @@
 
 import numpy as np
 import cv2
+import sys
 
 def read_rgb_image(image_name, show):
     rgb_image = cv2.imread(image_name)
-    if show: 
+    if show:
         cv2.imshow("RGB Image",rgb_image)
     return rgb_image
 
 def convert_rgb_to_gray(rgb_image,show):
     gray_image = cv2.cvtColor(rgb_image, cv2.COLOR_BGR2GRAY)
-    if show: 
+    if show:
         cv2.imshow("Gray Image",gray_image)
     return gray_image
 
 def convert_gray_to_binary(gray_image, adaptive, show):
-    if adaptive: 
-        binary_image = cv2.adaptiveThreshold(gray_image, 
-                            255, 
-                            cv2.ADAPTIVE_THRESH_GAUSSIAN_C, 
+    if adaptive:
+        binary_image = cv2.adaptiveThreshold(gray_image,
+                            255,
+                            cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
                             cv2.THRESH_BINARY_INV, 115, 2)
     else:
         _,binary_image = cv2.threshold(gray_image,127,255,cv2.THRESH_BINARY_INV)
     if show:
         cv2.imshow("Binary Image", binary_image)
-    return binary_image    
+    return binary_image
 
-def getContours(binary_image):      
-    contours, hierarchy = cv2.findContours(binary_image, 
-                                              cv2.RETR_TREE, 
+def getContours(binary_image):
+    _, contours, hierarchy = cv2.findContours(binary_image,
+                                              cv2.RETR_TREE,
                                                cv2.CHAIN_APPROX_SIMPLE)
     return contours
 
@@ -41,9 +42,8 @@ def draw_contours(image, contours, image_name):
     cv2.imshow(image_name,image)
 
 
-
 def main():
-    image_name = "images/tomato.jpg"
+    image_name = "../../images/example_images/tomato.jpg"
     rgb_image = read_rgb_image(image_name, True)
     gray_image= convert_rgb_to_gray(rgb_image,True)
     binary_image = convert_gray_to_binary(gray_image, True, True)
