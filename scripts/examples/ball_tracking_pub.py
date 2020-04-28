@@ -27,6 +27,7 @@ def read_publish():
     except KeyboardInterrupt:
       print("Shutting down")
       video_capture.release()
+        
     publisher.publish(ros_image)
     loop_rate.sleep()
  

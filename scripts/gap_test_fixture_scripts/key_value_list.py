@@ -1,6 +1,6 @@
 #!/usr/bin/env python 
 import cv2
-img = cv2.imread('.../images/dummy_image.png') # load a dummy image
+img = cv2.imread('../../images/dummy_image.png') # load a dummy image
 while(1):
     cv2.imshow('Hey',img)
     k = cv2.waitKey(33)

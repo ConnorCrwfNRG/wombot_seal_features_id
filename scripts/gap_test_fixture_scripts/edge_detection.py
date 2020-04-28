@@ -1,8 +1,8 @@
 #!/usr/bin/env python 
 import cv2
 
-gray_img = cv2.imread(".../images/test_piece_0_gray.png")
-saturation_img = cv2.imread(".../images/test_piece_0_saturation.png")
+gray_img = cv2.imread("../../images/test_piece_0_gray.png")
+saturation_img = cv2.imread("../../images/test_piece_0_saturation.png")
 
 #cv2.imshow("Gray Image", gray_img)
 #cv2.imshow("Saturation Image", saturation_img)
