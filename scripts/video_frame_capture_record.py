@@ -2,24 +2,32 @@
 
 import cv2
 import imutils
+import util
 
 key = cv2.waitKey(1)
 # video = cv2.VideoCapture(0)
-video = cv2.VideoCapture('../videos/seal_vid2.mp4')
+video = cv2.VideoCapture('../videos/Test_Video_WHoles.mov')
 
 # Define the codec and create VideoWriter object.The output is stored in 'outpy.avi' file.
 
 capture_video = False
+edit = True
 if capture_video == True:
     out = cv2.VideoWriter('../videos/seal_vid2_rotated.mp4',cv2.VideoWriter_fourcc('M','J','P','G'), 10, (600,600))
 while True:
     try:
         check, frame = video.read()
         print(check)  # prints true as long as the webcam is running
-        print(frame)  # prints matrix values of each framecd
-        frame = imutils.rotate(frame,90)
+        print(frame)  # prints matrix values of each frame
         # cv2.namedWindow('image', cv2.WINDOW_NORMAL)
-        frame = cv2.resize(frame, (600, 600))
+        height, width, _ = util.get_image_size(frame)
+        print "Height of iamge is %d " %height
+        print "Width of iamge is %d " %width
+        if edit == True:
+            # frame = imutils.rotate(frame,90)
+            resize_height = int(height*0.8)
+            resize_width = int(width*0.8)
+            frame = cv2.resize(frame, (resize_width, resize_height))
         cv2.imshow("Capturing", frame)
         if capture_video == True:
             out.write(frame)
@@ -39,7 +47,7 @@ while True:
             print("Resizing image to 28x28 scale...")
             img_ = cv2.resize(gray, (28, 28))
             print("Resized...")
-            img_resized = cv2.imwrite(filename='saved_img-final.jpg', img=img_)
+            # img_resized = cv2.imwrite(filename='saved_img-final.jpg', img=img_)
             print("Image saved!")
 
             break
