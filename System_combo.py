@@ -4,7 +4,7 @@ import imutils
 
 #Load the video
 
-video_path = os.path.join( os.getcwd(),'videos\Test_Video_WHoles.mov' )
+video_path = os.path.join( os.getcwd(),'./videos/Test_Video_WHoles.mov' )
 cap=cv2.VideoCapture(video_path,0)
 
 #Inital Setings 
@@ -36,9 +36,9 @@ Min_Area2=8400
 Brightness2=0
 
 # LOAD THE TRAINED CLASSIFIERS 
-hole_cascade_path = os.path.join( os.getcwd(),'images\holes\classifier\cascade.xml')
+hole_cascade_path = os.path.join( os.getcwd(),'./images/holes/classifier/cascade.xml')
 hole_cascade=cv2.CascadeClassifier(hole_cascade_path)
-screw_cascade_path = os.path.join( os.getcwd(),'images\\bolts\classifier\cascade.xml')
+screw_cascade_path = os.path.join( os.getcwd(),'./images/bolts/classifier/cascade.xml')
 ## Python error with '\b' -> solved with '\\b'
 screw_cascade=cv2.CascadeClassifier(screw_cascade_path)
 

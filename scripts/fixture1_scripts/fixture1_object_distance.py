@@ -5,6 +5,9 @@ import numpy as np
 import imutils
 import cv2
 import time
+import sys
+sys.path.insert(0,'../')
+import util
  
 def find_focalLength(frame):
 
@@ -95,21 +98,23 @@ KNOWN_WIDTH = 10
 KNOWN_HEIGHT = 7
 
 def main():
-    video_capture = cv2.VideoCapture(2)
+    # video_capture = cv2.VideoCapture(2)
     #video_capture = cv2.VideoCapture('video/tennis-ball-video.mp4')
+    image_name = "../../images/fixture1.png"
+    frame = util.read_starting_image(image_name, False)
 
     # load the first image that contains an object that is KNOWN TO BE 2 feet
     # from our camera, then find the paper marker in the image, and initialize
     # the focal length for use in while loopo
-    t_end = time.time() + 30
+    t_end = time.time() + 5
     while time.time() < t_end:
         print("calibrating...")
-        frames_per_sec = video_capture.get(cv2.CAP_PROP_FPS)
+        # frames_per_sec = video_capture.get(cv2.CAP_PROP_FPS)
         #print ("frames per second: {}".format(frames_per_sec))
         # frame_no = 0.01
         # cap.set(2,frame_no) #setting doesn't work for videoCapture, just videos
-        ret1, frame1 = video_capture.read() # Read the frame
-        focalLength_initial = find_focalLength(frame1)
+        # ret1, frame1 = video_capture.read() # Read the frame
+        focalLength_initial = find_focalLength(frame)
         time.sleep(.033)
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
@@ -120,7 +125,7 @@ def main():
         # now after calibration, load the image, find the marker in the image, then compute the
 	    # distance to the marker from the camera
 
-        ret, frame = video_capture.read()
+        # ret, frame = video_capture.read()
         try:
             marker = find_marker(frame)
             area = marker[1][0]*marker[1][1]

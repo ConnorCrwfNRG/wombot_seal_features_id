@@ -1,8 +1,8 @@
 #!/usr/bin/env python 
 import cv2
 
-gray_img = cv2.imread("../../images/test_piece_0_gray.png")
-saturation_img = cv2.imread("../../images/test_piece_0_saturation.png")
+gray_img = cv2.imread("../../images/fixture1_gray.png")
+saturation_img = cv2.imread("../../images/fixture1_saturation.png")
 
 #cv2.imshow("Gray Image", gray_img)
 #cv2.imshow("Saturation Image", saturation_img)
@@ -14,7 +14,7 @@ edge_img_saturation = cv2.Canny(saturation_img,100,200)
 #cv2.imshow("Detected Edges (Saturation)", edge_img_saturation)
 
 threshol_value=115
-#thresh_basic = util.basic_thresholding(gray_img,threshol_value)
+#thresh_basic = util.convert_gray_to_binary_basicThresh(gray_img,threshol_value)
 edge_img_basic = cv2.Canny(gray_img,100,200)
 #cv2.imshow("Detected Edges (Basic)", edge_img_basic)
 
