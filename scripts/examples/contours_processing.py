@@ -37,7 +37,7 @@ def getContours(binary_image):
     #_, contours, hierarchy = cv2.findContours(binary_image, 
     #                                          cv2.RETR_TREE, 
     #                                           cv2.CHAIN_APPROX_SIMPLE)
-    contours, hierarchy = cv2.findContours(binary_image.copy(), 
+    _, contours, hierarchy = cv2.findContours(binary_image.copy(),
                                             cv2.RETR_EXTERNAL,
 	                                        cv2.CHAIN_APPROX_SIMPLE)
     return contours
@@ -76,7 +76,7 @@ def get_contour_center(contour):
     return cx, cy
 
 def main():
-    image_name = "images/shapes.png"
+    image_name = "../../images/example_images/shapes.png"
     #image_name = "images/shapes2.jpg"
     rgb_image = read_rgb_image(image_name, True)
     gray_image= convert_rgb_to_gray(rgb_image,True,True)
