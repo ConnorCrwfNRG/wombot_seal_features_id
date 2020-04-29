@@ -23,11 +23,12 @@ import os
 # Create a VideoCapture object and read from input file
 
 # If the input is the camera, pass 0 instead of the video file name
-os.chdir("..")
-os.chdir("videos")
-print( os.path.abspath(os.curdir))
 
-cap = cv2.VideoCapture('Test_Video_WHoles.mov')
+path = os.path.join( os.getcwd(), '..', 'videos\Test_Video_WHoles.mov' )
+
+cap = cv2.VideoCapture(path)             
+             
+#cap = cv2.VideoCapture('..\videos\Test_Video_WHoles.mov')
  
 # Check if camera opened successfully
 if (cap.isOpened()== False): 

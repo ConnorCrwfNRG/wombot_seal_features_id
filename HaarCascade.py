@@ -1,9 +1,10 @@
 import cv2
-
+import os
 
 #Load the video
 
-cap=cv2.VideoCapture('/home/adrianabeyta/anaconda3/share/OpenCV/FInal Project/Test_Video_WHoles.mov',0)
+video_path = os.path.join( os.getcwd(),'videos\Test_Video_WHoles.mov' )
+cap=cv2.VideoCapture(video_path,0)
 
 #Inital Setings 
 objectName1 = 'hole'
@@ -34,56 +35,66 @@ Min_Area2=8400
 Brightness2=0
 
 # LOAD THE TRAINED CLASSIFIERS 
-hole_cascade=cv2.CascadeClassifier('/home/adrianabeyta/anaconda3/share/OpenCV/haarcascades/haarcascade_holes.xml')
-screw_cascade=cv2.CascadeClassifier('/home/adrianabeyta/anaconda3/share/OpenCV/haarcascades/haarcascade_bolt_last.xml')
+hole_cascade_path = os.path.join( os.getcwd(),'images\holes\classifier\cascade.xml')
+hole_cascade=cv2.CascadeClassifier(hole_cascade_path)
+screw_cascade_path = os.path.join( os.getcwd(),'images\\bolts\classifier\cascade.xml')
+## Python error with '\b' -> solved with '\\b'
+screw_cascade=cv2.CascadeClassifier(screw_cascade_path)
+
+
 while (cap.isOpened()):
     
-    ret=cap.read()
+    ret, image =cap.read()
     
-    if not ret:
-        break
+        
     #SCREWS 
     # SET CAMERA BRIGHTNESS FROM TRACKBAR VALUE
     cameraBrightness2 = Brightness2
     # GET VIDEO IMAGE
     success, img = cap.read()
-    # DETECT THE OBJECT USING THE CASCADE
-    scaleVal2=(Scale2 /100)
-    screw = screw_cascade.detectMultiScale(img,scaleVal2,Neigbors2)
-    
-    #HOLES
-    # SET CAMERA BRIGHTNESS FROM TRACKBAR VALUE
-    cameraBrightness1 = Brightness1
-    # GET VIDEO  IMAGE 
-    success, img = cap.read()
-    # DETECT THE OBJECT USING THE CASCADE
-    scaleVal1=(Scale1 /100)
-    hole = hole_cascade.detectMultiScale(img,scaleVal1,Neigbors1)
-    
-    #DISPLAY THE DETECTED SCREWS
-    for (x,y,w,h) in screw:
-        area = w*h
-        minArea = Min_Area2
-        if area >minArea:
-            cv2.rectangle(img,(x,y),(x+w,y+h),color1,3)
-            cv2.putText(img,objectName2,(x,y-5),cv2.FONT_HERSHEY_COMPLEX_SMALL,1,color1,1)
-            roi_color = img[y:y+h, x:x+w]
-            
-    # DISPLAY THE DETECTED HOLES
-    for (x,y,w,h) in hole:
-        area = w*h
-        minArea = Min_Area1
-        if area >minArea:
-            cv2.rectangle(img,(x,y),(x+w,y+h),color2,3)
-            cv2.putText(img,objectName1,(x,y-5),cv2.FONT_HERSHEY_COMPLEX_SMALL,1,color2,1)
-            roi_color = img[y:y+h, x:x+w]
-            
-   #SHOWS THE RESULTANT BOXES
-    cv2.imshow("Result", img)
+     
+    if success == True:
+         
+        # DETECT THE OBJECT USING THE CASCADE
+        scaleVal2=(Scale2 /100)
+        screw = screw_cascade.detectMultiScale(img,scaleVal2,Neigbors2)
+         
+        #HOLES
+        # SET CAMERA BRIGHTNESS FROM TRACKBAR VALUE
+        cameraBrightness1 = Brightness1
+        # GET VIDEO  IMAGE 
+        success, img = cap.read()
+        # DETECT THE OBJECT USING THE CASCADE
+        scaleVal1=(Scale1 /100)
+        hole = hole_cascade.detectMultiScale(img,scaleVal1,Neigbors1)
+         
+        #DISPLAY THE DETECTED SCREWS
+        for (x,y,w,h) in screw:
+            area = w*h
+            minArea = Min_Area2
+            if area >minArea:
+                cv2.rectangle(img,(x,y),(x+w,y+h),color1,3)
+                cv2.putText(img,objectName2,(x,y-5),cv2.FONT_HERSHEY_COMPLEX_SMALL,1,color1,1)
+                roi_color = img[y:y+h, x:x+w]
+             
+        # DISPLAY THE DETECTED HOLES
+        for (x,y,w,h) in hole:
+            area = w*h
+            minArea = Min_Area1
+            if area >minArea:
+                cv2.rectangle(img,(x,y),(x+w,y+h),color2,3)
+                cv2.putText(img,objectName1,(x,y-5),cv2.FONT_HERSHEY_COMPLEX_SMALL,1,color2,1)
+                roi_color = img[y:y+h, x:x+w]
+             
+        #SHOWS THE RESULTANT BOXES
+        cv2.imshow("Result", img)
+         
+        # ALLOWS FOR CANCELATION USING ESCAPE
+        k=cv2.waitKey(30) & 0xff
+        if k==27:
+            break
 
-    # ALLOWS FOR CANCELATION USING ESCAPE
-    k=cv2.waitKey(30) & 0xff
-    if k==27:
+    else:
         break
     
 cap.release()
