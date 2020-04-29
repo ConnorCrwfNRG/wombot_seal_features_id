@@ -52,7 +52,7 @@ while (cap.isOpened()):
     cameraBrightness2 = Brightness2
     # GET VIDEO IMAGE
     success, img = cap.read()
-     
+    print(success)
     if success == True:
          
         # DETECT THE OBJECT USING THE CASCADE

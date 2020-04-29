@@ -111,13 +111,13 @@ while(cap.isOpened()):
         ### Code to connect points goes here
         if len(left_point) ==2 and len(right_point)==2:
             left = cv2.line(frame, left_point[0], left_point[1], (0,0,255), 2)
-            left_dist = abs(left_point[0][1] - left_point[1][1])
+            left_dist = float(abs(left_point[0][1] - left_point[1][1])) / 10
             
             right = cv2.line(frame, right_point[0], right_point[1], (0,0,255), 2)
-            right_dist = abs(right_point[0][1] - right_point[1][1])
+            right_dist = float(abs(right_point[0][1] - right_point[1][1])) / 10
             print(left_point, right_point)
-            cv2.putText(frame, 'The left distance is ' + str(left_dist) + ' pixels', (50,50), cv2.FONT_HERSHEY_SIMPLEX , 1, (0,255,0), 2)
-            cv2.putText(frame, 'The right distance is ' + str(right_dist) + ' pixels', (50,100), cv2.FONT_HERSHEY_SIMPLEX , 1, (0,255,0), 2)
+            cv2.putText(frame, 'The left distance is ' + str(left_dist) + ' cm', (50,50), cv2.FONT_HERSHEY_SIMPLEX , 1, (0,255,0), 2)
+            cv2.putText(frame, 'The right distance is ' + str(right_dist) + ' cm', (50,100), cv2.FONT_HERSHEY_SIMPLEX , 1, (0,255,0), 2)
         cv2.imshow('Frame',frame)
  
         # Press Q on keyboard to  exit
