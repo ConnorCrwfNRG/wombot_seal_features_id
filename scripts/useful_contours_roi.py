@@ -27,7 +27,7 @@ os.chdir("..")
 os.chdir("videos")
 print( os.path.abspath(os.curdir))
 
-cap = cv2.VideoCapture('seal_vid1.mp4')
+cap = cv2.VideoCapture('Test_Video_WHoles.mov')
  
 # Check if camera opened successfully
 if (cap.isOpened()== False): 
@@ -41,9 +41,15 @@ while(cap.isOpened()):
  
         # Display the resulting frame
         # convert the frame to grayscale, blur it, and detect edges
-        frame = cv2.resize(frame, (640,480))
-        RIO = frame[300:400,10:630]
-        cv2.rectangle(frame, (0, 250), (640, 410), (0, 255, 0), 2)
+        width = 600
+        height = 600
+        upper_bound = height-100
+        lower_bound = height
+        left_bound = 0 
+        right_bound = width 
+        frame = cv2.resize(frame, (width,height))
+        RIO = frame[upper_bound:height,left_bound:right_bound]
+        cv2.rectangle(frame, (0, upper_bound), (right_bound, height), (0, 255, 0), 2)
         
         
         
@@ -55,7 +61,7 @@ while(cap.isOpened()):
         lab = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
         ycrcb = cv2.cvtColor(frame, cv2.COLOR_BGR2YCR_CB)
-        ret,thresh1 = cv2.threshold(blurred,30,255,cv2.THRESH_BINARY_INV)
+        ret,thresh1 = cv2.threshold(blurred,140,255,cv2.THRESH_BINARY_INV)
         edged = cv2.Canny(thresh1, 50, 150)
         cv2.imshow('Threshold', thresh1)
 
@@ -71,6 +77,7 @@ while(cap.isOpened()):
         for c in cnts:
             # approximate the contour
             peri = cv2.arcLength(c, True)
+            #print(peri)
             approx = cv2.approxPolyDP(c, 0.01 * peri, True)
             #cv2.drawContours(frame, [approx], -1, (0, 0, 255), 4)
             (x, y, w, h) = cv2.boundingRect(approx)
@@ -92,11 +99,11 @@ while(cap.isOpened()):
                 rows,cols = frame.shape[:2]
                 [vx,vy,x,y] = cv2.fitLine(c, cv2.DIST_L2,0,0.01,0.01)
                 lefty = int((-x*vy/vx) + y)
-                lefty = lefty + 300
-                left_point.append((10,lefty))
+                lefty = lefty + upper_bound
+                left_point.append((left_bound,lefty))
                 righty = int(((cols-x)*vy/vx)+y)
-                righty = righty + 300
-                right_point.append((630,righty))
+                righty = righty + upper_bound
+                right_point.append((right_bound,righty))
                 
                 img = cv2.line(frame,(cols-1,righty),(0,lefty),(0,255,0),2)
                 
