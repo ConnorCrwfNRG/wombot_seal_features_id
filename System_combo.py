@@ -97,7 +97,7 @@ while (cap.isOpened()):
         right_bound = width 
         img = cv2.resize(img, (width,height))
         RIO = img[upper_bound:height,left_bound:right_bound]
-        cv2.rectangle(img, (0, upper_bound), (right_bound, height), (0, 255, 0), 2)
+        #cv2.rectangle(img, (0, upper_bound), (right_bound, height), (0, 255, 0), 2)
         
         
         
@@ -158,13 +158,13 @@ while (cap.isOpened()):
         ### Code to connect points goes here
         if len(left_point) ==2 and len(right_point)==2:
             left = cv2.line(img, left_point[0], left_point[1], (0,0,255), 2)
-            left_dist = float(abs(left_point[0][1] - left_point[1][1])) / 10
+            left_dist = round(float(abs(left_point[0][1] - left_point[1][1])) / 15 * 0.125, 2)
             
             right = cv2.line(img, right_point[0], right_point[1], (0,0,255), 2)
-            right_dist = float(abs(right_point[0][1] - right_point[1][1])) / 10
+            right_dist = round(float(abs(right_point[0][1] - right_point[1][1])) / 15 * 0.125, 2)
             print(left_point, right_point)
-            cv2.putText(img, 'The left distance is ' + str(left_dist) + ' cm', (50,50), cv2.FONT_HERSHEY_SIMPLEX , 1, (0,255,0), 2)
-            cv2.putText(img, 'The right distance is ' + str(right_dist) + ' cm', (50,100), cv2.FONT_HERSHEY_SIMPLEX , 1, (0,255,0), 2)
+            cv2.putText(img, 'The left distance is ' + str(left_dist) + ' inches', (50,50), cv2.FONT_HERSHEY_SIMPLEX , 1, (0,255,0), 2)
+            cv2.putText(img, 'The right distance is ' + str(right_dist) + ' inches', (50,100), cv2.FONT_HERSHEY_SIMPLEX , 1, (0,255,0), 2)
         
          
 
