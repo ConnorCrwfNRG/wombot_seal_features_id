@@ -1,4 +1,4 @@
-Inorder to run our code follow the steps below:
+In order to run our code follow the steps below:
 
 1.Clone or download into your personal repositioty. 
 2.Load System_combo.py
