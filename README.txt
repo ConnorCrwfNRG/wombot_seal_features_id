@@ -1,3 +1,4 @@
+## Running and Installation
 In order to run our code follow the steps below:
 
 1.Clone or download into your personal repositioty. 
