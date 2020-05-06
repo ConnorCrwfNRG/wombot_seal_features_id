@@ -1,0 +1,15 @@
+<Packages>
+    <ApplicationName>Cascade Trainer GUI</ApplicationName>
+    <ApplicationVersion>1.0.0</ApplicationVersion>
+    <Package>
+        <Name>com.amin.castraingui</Name>
+        <Pixmap></Pixmap>
+        <Title>Cascade Trainer GUI</Title>
+        <Description>Install Cascade Trainer GUI (x64) on this computer.</Description>
+        <Version>3.3.1</Version>
+        <LastUpdateDate></LastUpdateDate>
+        <InstallDate>2020-04-25</InstallDate>
+        <Size>113177093</Size>
+        <Dependencies></Dependencies>
+    </Package>
+</Packages>
