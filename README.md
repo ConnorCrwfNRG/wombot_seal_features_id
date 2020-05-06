@@ -45,15 +45,15 @@ Bolts will be used to provide an example on how to improve the classifier
 ```
 wombot_seal_features_id/images/bolts/n
 ```
-	- It is best if these negative pictures are in the same frame as the bolt
-	- It is ***very important*** that these negative pictures do not contain any part of a bolt as this can improperly train the classifier
+- It is best if these negative pictures are in the same frame as the bolt
+- It is ***very important*** that these negative pictures do not contain any part of a bolt as this can improperly train the classifier
 
 3. Add any bolt picture (positive) pictures to:
 ```
 wombot_seal_features_id/images/bolts/p
 ```
-	- It is best to include only the bolt within the picture or snip
-	- If possible, obtain pictures with similar lighting settings as the test video
+- It is best to include only the bolt within the picture or snip
+- If possible, obtain pictures with similar lighting settings as the test video
 
 4. Open the Classifier GUI in the following directory:
 ```
@@ -65,10 +65,10 @@ wombot_seal_features_id/Cascade Trainer GUI/Cascade-Trainer-GUI
 wombot_seal_features_id/images/bolts
 ```
 
-	This will usually be something like:
-	```
-	C:/Users/..../wombot_seal_features_id/images/bolts
-	```
+This will usually be something like:
+```
+C:/Users/..../wombot_seal_features_id/images/bolts
+```
 
 6. Change the *Negative Image Count* values to accurately reflect the number of images in: 
 ```
@@ -85,7 +85,7 @@ wombot_seal_features_id/images/bolts/n
 ```
 /wombot_seal_features_id/images/bolts/classifier
 ```
-	Where you will find a *cascade.xml* file.  This is the classifier file and is the file to reference in scripts.  
+Where you will find a *cascade.xml* file.  This is the classifier file and is the file to reference in scripts.  
 
  
 #### Training New Models
@@ -99,7 +99,7 @@ wombot_seal_features_id/images/bolts/n
 ```
 /wombot_seal_features_id/images/your item
 ```
-	Create two folders: *p* and *n*
+Create two folders: *p* and *n*
 
 
 3. Place positive images into the *p* folder and negative images into the *n* folder
