@@ -6,7 +6,9 @@
 
 #PyCharm-related
 *.idea/
-*.pyc
+
+#VScode-related
+*.vscode/
 
 #related to Connor's virtual environment using pipenv
 Pipfile
