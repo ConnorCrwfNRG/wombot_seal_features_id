@@ -6,7 +6,7 @@
     password="visionary"
     env-loader="/home/wombot/catkin_ws/devel/ovc_env_loader.sh"
   />
-
+<!-- make sure to configure cameras to always be tied to a specific /dev/video* when plugged in -->
   <node
     machine="pi"
     name="usb_cam"
