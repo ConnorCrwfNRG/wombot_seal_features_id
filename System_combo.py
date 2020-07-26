@@ -1,9 +1,12 @@
+#!/usr/bin/env python2.7
+
 import cv2
 import os
 import imutils
 
 #Load the video
 
+# ./ means in cwd directory. could have left it out and started with 'videos/' I believe
 video_path = os.path.join( os.getcwd(),'./videos/Test_Video_WHoles.mov' )
 cap=cv2.VideoCapture(video_path,0)
 
